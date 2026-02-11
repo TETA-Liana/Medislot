@@ -15,7 +15,16 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
-export default function DashboardProfile() {
+interface DashboardProfileProps {
+    onLogout: () => void;
+    user: any;
+}
+
+export default function DashboardProfile({ onLogout, user }: DashboardProfileProps) {
+    const fullName = user ? `${user.firstName} ${user.lastName}` : 'User Profile';
+    const email = user?.email || 'user@example.com';
+    const phone = user?.phone || '+250 000 000 000';
+
     return (
         <div className="max-w-4xl mx-auto space-y-8 pb-10">
             {/* Profile Hero */}
@@ -31,7 +40,7 @@ export default function DashboardProfile() {
                         </button>
                     </div>
                     <div className="flex-1">
-                        <h2 className="text-3xl font-black text-slate-900 mb-2">Sarah Mitchell</h2>
+                        <h2 className="text-3xl font-black text-slate-900 mb-2">{fullName}</h2>
                         <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mb-6">Platinum Health Member • Since 2024</p>
                         <div className="flex flex-wrap justify-center md:justify-start gap-4">
                             <Button className="h-11 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg shadow-emerald-500/20">Edit Profile</Button>
@@ -46,9 +55,9 @@ export default function DashboardProfile() {
                 {[
                     {
                         title: 'Personal Information', items: [
-                            { icon: User, label: 'Full Name', value: 'Sarah Mitchell' },
-                            { icon: Mail, label: 'Email', value: 'sarah.m@gmail.com' },
-                            { icon: Phone, label: 'Phone', value: '+250 788 123 456' }
+                            { icon: User, label: 'Full Name', value: fullName },
+                            { icon: Mail, label: 'Email', value: email },
+                            { icon: Phone, label: 'Phone', value: phone }
                         ]
                     },
                     {
@@ -94,7 +103,10 @@ export default function DashboardProfile() {
                     <p className="text-red-600/70 text-sm font-medium">Be careful, these actions are permanent and cannot be undone.</p>
                 </div>
                 <div className="flex gap-4 w-full md:w-auto">
-                    <Button className="flex-1 md:flex-none h-12 px-6 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-xl shadow-red-600/10 transition-all flex items-center justify-center gap-2">
+                    <Button
+                        onClick={onLogout}
+                        className="flex-1 md:flex-none h-12 px-6 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-xl shadow-red-600/10 transition-all flex items-center justify-center gap-2 border-0"
+                    >
                         <LogOut size={18} />
                         Logout
                     </Button>

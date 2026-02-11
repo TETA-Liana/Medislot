@@ -20,11 +20,18 @@ import DashboardProfile from './DashboardProfile';
 import BookingModal from './BookingModal';
 import DoctorDetailsModal from './DoctorDetailsModal';
 
-export default function Dashboard() {
+interface DashboardProps {
+    onLogout: () => void;
+    user: any;
+}
+
+export default function Dashboard({ onLogout, user }: DashboardProps) {
     const [activeTab, setActiveTab] = useState('Overview');
     const [isBookingOpen, setIsBookingOpen] = useState(false);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState<any>(null);
+
+    const userInitial = user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'U';
 
     const appointments = [
         { id: 1, doctor: 'Dr. Sarah Mitchell', specialty: 'Cardiologist', time: '10:30 AM', date: 'Oct 24, 2024', status: 'Upcoming' },
@@ -132,7 +139,7 @@ export default function Dashboard() {
                             <Bell size={22} className="group-hover:animate-bounce" />
                             <span className="absolute top-3 right-3 w-2 h-2 bg-emerald-500 rounded-full border-2 border-white" />
                         </button>
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-100 border-2 border-white shadow-lg overflow-hidden flex items-center justify-center text-emerald-600 font-black cursor-pointer hover:scale-105 transition-transform">S</div>
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-100 border-2 border-white shadow-lg overflow-hidden flex items-center justify-center text-emerald-600 font-black cursor-pointer hover:scale-105 transition-transform">{userInitial}</div>
                     </div>
                 </div>
 
@@ -163,7 +170,7 @@ export default function Dashboard() {
                             onOpenBooking={handleOpenBooking}
                         />
                     )}
-                    {activeTab === 'Profile' && <DashboardProfile />}
+                    {activeTab === 'Profile' && <DashboardProfile onLogout={onLogout} user={user} />}
                 </div>
             </main>
         </div>

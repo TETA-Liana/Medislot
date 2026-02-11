@@ -9,9 +9,10 @@ import { Button } from '@/components/ui/Button';
 interface HeaderProps {
     view: string;
     setView: (view: string) => void;
+    onAuth: (mode: 'login' | 'signup') => void;
 }
 
-export default function Header({ view, setView }: HeaderProps) {
+export default function Header({ view, setView, onAuth }: HeaderProps) {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -78,16 +79,16 @@ export default function Header({ view, setView }: HeaderProps) {
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-6">
                     <button
-                        onClick={() => setView('dashboard')}
+                        onClick={() => onAuth('login')}
                         className="text-slate-800 font-bold text-sm hover:text-emerald-600 transition-colors"
                     >
                         Sign in
                     </button>
                     <Button
-                        onClick={() => setView('dashboard')}
-                        className="rounded-xl px-7 py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5"
+                        onClick={() => onAuth('signup')}
+                        className="rounded-xl px-7 py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 border-0"
                     >
-                        {view === 'landing' ? 'Get Started' : 'Dashboard'}
+                        Get Started
                     </Button>
                 </div>
 

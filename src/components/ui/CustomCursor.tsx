@@ -8,12 +8,14 @@ export default function CustomCursor() {
     const cursorY = useMotionValue(-100);
     const [isHovering, setIsHovering] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     const springConfig = { damping: 25, stiffness: 250 };
     const ringX = useSpring(cursorX, springConfig);
     const ringY = useSpring(cursorY, springConfig);
 
     useEffect(() => {
+        setMounted(true);
         const moveCursor = (e: MouseEvent) => {
             cursorX.set(e.clientX);
             cursorY.set(e.clientY);
@@ -48,7 +50,7 @@ export default function CustomCursor() {
         };
     }, [cursorX, cursorY, isVisible]);
 
-    if (typeof window === 'undefined') return null;
+    if (!mounted) return null;
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block">
