@@ -10,22 +10,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#022c22", // Deep dark green (almost black)
+        background: "#020617", // Slate 950 (Deep Dark Blue)
         foreground: "#ffffff",
         primary: {
-          DEFAULT: '#10b981', // Emerald 500
-          400: '#34d399',
-          500: '#10b981',
-          600: '#059669',
-          glow: '#00ffa3', // Bright neon green for accents
+          DEFAULT: '#0ea5e9', // Sky 500 (Light Blue)
+          400: '#38bdf8', // Sky 400
+          500: '#0ea5e9', // Sky 500
+          600: '#0284c7', // Sky 600
+          glow: '#67e8f9', // Cyan 300 for accents
         },
         secondary: {
-          DEFAULT: '#115e59', // Teal 800
+          DEFAULT: '#1e3a8a', // Blue 900
         },
         dark: {
           900: '#020617',
           800: '#0f172a',
-          card: '#064e3b', // Dark green card background
+          card: '#1e293b', // Slate 800
         }
       },
       fontFamily: {
@@ -48,8 +48,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          'from': { boxShadow: '0 0 10px #10b981, 0 0 20px #10b981' },
-          'to': { boxShadow: '0 0 20px #34d399, 0 0 30px #34d399' },
+          'from': { boxShadow: '0 0 10px #0ea5e9, 0 0 20px #0ea5e9' },
+          'to': { boxShadow: '0 0 20px #38bdf8, 0 0 30px #38bdf8' },
         }
       }
     },

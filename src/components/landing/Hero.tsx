@@ -1,263 +1,346 @@
-
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Search, Calendar, Star, ShieldCheck, Activity, Zap } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Activity, Shield, Star, Clock, MapPin, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 export default function Hero() {
-    return (
-        <section className="relative min-h-screen bg-[#020617] flex items-center pt-32 pb-20 overflow-hidden text-white selection:bg-primary-500 selection:text-black">
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+    const y2 = useTransform(scrollY, [0, 500], [0, -150]);
 
-            {/* 1. Dynamic Organic Background Lines (The "Creative/Non-AI" touch) */}
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
+    // Generate floating particles for ambient effect
+    const particles = Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 4 + 2,
+        duration: Math.random() * 10 + 15,
+        delay: Math.random() * 5,
+    }));
+
+    return (
+        <section className="relative min-h-screen bg-[#020617] overflow-hidden flex items-center pt-20 lg:pt-0 selection:bg-sky-500/30 selection:text-sky-200">
+
+            {/* Animated Particles */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <svg className="absolute w-full h-full opacity-30" viewBox="0 0 1440 900" preserveAspectRatio="none">
-                    <motion.path
-                        d="M-100,600 C200,400 600,800 1600,200"
-                        stroke="url(#grad1)"
-                        strokeWidth="2"
-                        fill="none"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: 1 }}
-                        transition={{ duration: 3, ease: "easeInOut" }}
+                {mounted && particles.map((particle) => (
+                    <motion.div
+                        key={particle.id}
+                        className="absolute rounded-full bg-sky-400/30 blur-sm"
+                        style={{
+                            left: `${particle.x}%`,
+                            top: `${particle.y}%`,
+                            width: particle.size,
+                            height: particle.size,
+                        }}
+                        animate={{
+                            y: [0, -100, 0],
+                            opacity: [0, 0.6, 0],
+                        }}
+                        transition={{
+                            duration: particle.duration,
+                            repeat: Infinity,
+                            delay: particle.delay,
+                            ease: "easeInOut",
+                        }}
                     />
-                    <motion.path
-                        d="M-100,800 C300,500 800,900 1600,400"
-                        stroke="url(#grad2)"
-                        strokeWidth="2"
-                        fill="none"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: 1 }}
-                        transition={{ duration: 3.5, ease: "easeInOut", delay: 0.5 }}
-                    />
-                    <defs>
-                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#10b981" stopOpacity="0" />
-                            <stop offset="50%" stopColor="#10b981" stopOpacity="0.5" />
-                            <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
-                        </linearGradient>
-                        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#0f766e" stopOpacity="0" />
-                            <stop offset="50%" stopColor="#0f766e" stopOpacity="0.5" />
-                            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+                ))}
             </div>
 
-            {/* 2. Ambient Glow Orbs */}
-            <motion.div
-                animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none"
-            />
-            <motion.div
-                animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-[-10%] left-[-20%] w-[1000px] h-[1000px] bg-secondary/10 rounded-full blur-[150px] pointer-events-none"
-            />
+            {/* Background Gradients */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* Top Center Glow - Animated */}
+                <motion.div
+                    animate={{
+                        scale: [1, 1.1, 1],
+                        opacity: [0.2, 0.25, 0.2]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80vw] h-[60vh] bg-blue-600/20 blur-[120px] rounded-full mix-blend-screen"
+                />
+                {/* Bottom Right Glow */}
+                <motion.div
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.1, 0.15, 0.1]
+                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute bottom-[-10%] right-[-5%] w-[40vw] h-[40vh] bg-sky-500/10 blur-[100px] rounded-full"
+                />
+                {/* Bottom Left Glow */}
+                <div className="absolute bottom-[10%] left-[-10%] w-[30vw] h-[30vh] bg-indigo-600/10 blur-[80px] rounded-full" />
+            </div>
 
-            <div className="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            {/* Grid Pattern */}
+            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)] opacity-[0.07] pointer-events-none" />
 
-                {/* Content Side */}
-                <div className="max-w-2xl relative z-20">
+            <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+
+                {/* Left Content */}
+                <div className="flex flex-col items-start text-left pt-10 lg:pt-0">
+
+                    {/* Badge */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary-400 text-sm font-medium mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:bg-white/10 transition-colors"
+                        className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 backdrop-blur-md"
                     >
-                        <Activity className="w-4 h-4 text-primary-500 animate-pulse" />
-                        <span className="tracking-wide">Next-Gen Healthcare OS</span>
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                        </span>
+                        <span className="text-xs font-medium text-sky-300 tracking-wide uppercase">
+                            Next Gen Healthcare
+                        </span>
                     </motion.div>
 
+                    {/* Headline */}
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-8 font-sans tracking-tight"
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="text-5xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6"
                     >
-                        Health, <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-emerald-300 to-teal-500 relative">
-                            Reimagined.
-                            <svg className="absolute -bottom-2 left-0 w-full h-3 text-primary-500 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                        <motion.span
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                        >
+                            The{' '}
+                        </motion.span>
+                        <motion.span
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 relative inline-block"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.6, delay: 0.5 }}
+                        >
+                            Solution
+                            <motion.svg
+                                className="absolute w-full h-3 -bottom-1 left-0 text-sky-500 opacity-60"
+                                viewBox="0 0 100 10"
+                                preserveAspectRatio="none"
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 1, delay: 1 }}
+                            >
                                 <motion.path
                                     d="M0 5 Q 50 10 100 5"
                                     stroke="currentColor"
                                     strokeWidth="3"
                                     fill="none"
-                                    initial={{ pathLength: 0 }}
-                                    animate={{ pathLength: 1 }}
-                                    transition={{ duration: 1, delay: 1 }}
                                 />
-                            </svg>
-                        </span>
+                            </motion.svg>
+                        </motion.span>{' '}
+                        <motion.span
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.7 }}
+                        >
+                            To Your
+                        </motion.span>
+                        <br />
+                        <motion.span
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.9 }}
+                        >
+                            Health{' '}
+                        </motion.span>
+                        <motion.span
+                            className="text-slate-400"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 1.1 }}
+                        >
+                            Journey
+                        </motion.span>
                     </motion.h1>
 
+                    {/* Description */}
                     <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.8 }}
-                        className="text-xl text-gray-400 mb-12 max-w-lg leading-relaxed mix-blend-plus-lighter"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="text-lg text-slate-400 max-w-xl mb-8 leading-relaxed"
                     >
-                        Orchestrate your entire medical journey from a single dashboard. Bookings, records, and prescriptions—synced in real-time.
+                        Smart scheduling powered by real-time availability. Get the fastest appointments, track your wellness in real-time, and avoid waiting rooms with Medislot&apos;s intelligent care system.
                     </motion.p>
 
+                    {/* Buttons */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                        className="flex flex-col sm:flex-row gap-5"
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                        className="flex flex-wrap gap-4"
                     >
-                        <Button className="h-16 px-10 rounded-full bg-primary-600 hover:bg-primary-500 text-white font-bold text-lg shadow-[0_0_30px_rgba(16,185,129,0.4)] hover:shadow-[0_0_50px_rgba(16,185,129,0.6)] transition-all transform hover:-translate-y-1 border border-primary-500/50 group relative overflow-hidden">
-                            <span className="relative z-10 flex items-center">Find a Doctor <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" /></span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                        </Button>
-                        <Button variant="outline" className="h-16 px-10 rounded-full text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-primary-500/50 text-lg transition-all backdrop-blur-sm">
-                            Explore Specialties
-                        </Button>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Button className="relative h-14 px-8 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_40px_rgba(14,165,233,0.5)] transition-all border-0 group overflow-hidden">
+                                <span className="relative z-10 flex items-center">
+                                    Get the App
+                                    <Smartphone className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
+                                </span>
+                                {/* Animated shine effect */}
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                    animate={{ x: ['-100%', '200%'] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+                                />
+                            </Button>
+                        </motion.div>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Button variant="outline" className="h-14 px-8 rounded-full border-slate-700 bg-slate-900/50 text-white hover:bg-slate-800 hover:text-sky-300 hover:border-sky-500/50 transition-all group">
+                                How it works
+                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                        </motion.div>
                     </motion.div>
 
-                    {/* Trust/Stats Row */}
+                    {/* Stats/Trust */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.9 }}
-                        className="mt-16 flex items-center gap-10 text-sm font-medium text-gray-500 border-t border-white/5 pt-8"
+                        transition={{ duration: 1, delay: 0.8 }}
+                        className="mt-12 flex items-center gap-8 border-t border-slate-800 pt-8 w-full max-w-md"
                     >
-                        <div className="flex items-center gap-3 group cursor-pointer">
-                            <div className="w-10 h-10 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center group-hover:bg-primary-500/20 group-hover:border-primary-500 transition-colors">
-                                <ShieldCheck className="w-5 h-5 text-gray-400 group-hover:text-primary-400" />
-                            </div>
-                            <div>
-                                <div className="text-white font-bold">HIPAA</div>
-                                <div className="text-xs">Compliant</div>
-                            </div>
+                        <div>
+                            <div className="text-2xl font-bold text-white">20k+</div>
+                            <div className="text-xs text-slate-500 uppercase tracking-wider">Patients</div>
                         </div>
-                        <div className="w-px h-8 bg-gray-800"></div>
-                        <div className="flex items-center gap-3 group cursor-pointer">
-                            <div className="w-10 h-10 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center group-hover:bg-yellow-500/20 group-hover:border-yellow-500 transition-colors">
-                                <Star className="w-5 h-5 text-gray-400 group-hover:text-yellow-400" />
-                            </div>
-                            <div>
-                                <div className="text-white font-bold">4.9/5</div>
-                                <div className="text-xs">User Rating</div>
-                            </div>
+                        <div>
+                            <div className="text-2xl font-bold text-white">4.9/5</div>
+                            <div className="text-xs text-slate-500 uppercase tracking-wider">Rating</div>
+                        </div>
+                        <div>
+                            <div className="text-2xl font-bold text-white">15min</div>
+                            <div className="text-xs text-slate-500 uppercase tracking-wider">Avg Wait</div>
                         </div>
                     </motion.div>
                 </div>
 
-                {/* Visual Side - Enhanced Glass Interface */}
-                <div className="relative h-[650px] w-full hidden lg:flex items-center justify-center perspective-1000">
+                {/* Right Visuals (Abstract Map/App Interface) */}
+                <div className="relative h-[600px] w-full hidden lg:block perspective-1000">
 
-                    {/* Background Circle Scan */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                            className="w-[500px] h-[500px] border border-white/5 rounded-full border-dashed"
-                        />
-                    </div>
-
-                    {/* Main Floating Card */}
+                    {/* Floating Phone/Card Mockup */}
                     <motion.div
-                        initial={{ rotateX: 20, rotateY: -20, opacity: 0, scale: 0.9 }}
-                        animate={{ rotateX: 0, rotateY: 0, opacity: 1, scale: 1 }}
-                        transition={{ duration: 1.2, ease: "easeOut" }}
-                        whileHover={{ rotateX: 5, rotateY: -5, scale: 1.02 }}
-                        className="relative w-[420px] bg-gradient-to-b from-gray-900/80 to-black/80 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden z-20 group"
+                        style={{ y: y1 }}
+                        className="absolute top-10 right-10 w-[320px] h-[580px] bg-slate-900 border border-slate-700 rounded-[3rem] shadow-2xl p-4 overflow-hidden z-20 group hover:border-sky-500/50 transition-colors duration-500"
                     >
                         {/* Glossy Reflection */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-50 pointer-events-none" />
+                        <div className="absolute top-0 left-0 w-full h-[30%] bg-gradient-to-b from-white/5 to-transparent pointer-events-none rounded-t-[3rem]" />
 
-                        {/* Header */}
-                        <div className="p-8 border-b border-white/5 flex justify-between items-center bg-white/5">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-primary-500/20 flex items-center justify-center text-primary-400">
-                                    <Activity className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <div className="text-sm font-bold text-white">System Status</div>
-                                    <div className="text-xs text-primary-400 flex items-center gap-1">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
-                                        Online
+                        <div className="flex flex-col h-full bg-[#020617] rounded-[2.5rem] overflow-hidden relative">
+                            {/* Mock UI: Header */}
+                            <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800">
+                                <div className="w-8 h-8 rounded-full bg-slate-800" />
+                                <div className="text-xs text-slate-400 font-medium">Medislot</div>
+                                <div className="w-6 h-6 rounded-md bg-sky-500/20" />
+                            </div>
+
+                            {/* Mock UI: Map */}
+                            <div className="flex-1 relative bg-slate-900 overflow-hidden">
+                                {/* Abstract Map Lines */}
+                                <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 400 600">
+                                    <path d="M50 50 Q 200 100 350 50" stroke="#38bdf8" strokeWidth="2" fill="none" strokeDasharray="5 5" />
+                                    <path d="M100 100 L 100 500" stroke="#38bdf8" strokeWidth="1" fill="none" opacity="0.5" />
+                                    <path d="M50 300 Q 200 400 350 300" stroke="#38bdf8" strokeWidth="2" fill="none" />
+                                    {/* Pulsing Dots */}
+                                    <circle cx="100" cy="200" r="4" fill="#0ea5e9" className="animate-pulse" />
+                                    <circle cx="250" cy="350" r="4" fill="#0ea5e9" className="animate-pulse" />
+                                </svg>
+
+                                {/* Route Line Animation */}
+                                <motion.div
+                                    initial={{ height: 0 }}
+                                    animate={{ height: "60%" }}
+                                    transition={{ duration: 3, repeat: Infinity }}
+                                    className="absolute top-[20%] left-[30%] w-1 bg-gradient-to-b from-sky-400 to-transparent blur-[1px]"
+                                />
+
+                                {/* Location Pins */}
+                                <motion.div
+                                    animate={{ y: [0, -10, 0] }}
+                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                    className="absolute top-[30%] left-[20%]"
+                                >
+                                    <div className="relative">
+                                        <MapPin className="text-sky-400 w-8 h-8 drop-shadow-[0_0_10px_rgba(56,189,248,0.5)] fill-sky-900/50" />
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-sky-100 rounded-full animate-ping" />
                                     </div>
-                                </div>
-                            </div>
-                            <div className="px-3 py-1 rounded-full bg-black/40 border border-white/10 text-xs text-gray-400">
-                                v2.4.0
-                            </div>
-                        </div>
+                                </motion.div>
 
-                        {/* Content */}
-                        <div className="p-8 space-y-6">
-                            {/* Simulated Appointment Slot */}
-                            <div className="space-y-3">
-                                <div className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Upcoming</div>
-                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5 hover:border-primary-500/50 transition-colors cursor-pointer group/card">
-                                    <div className="flex justify-between items-start mb-3">
-                                        <div className="flex gap-3">
-                                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500" />
-                                            <div>
-                                                <div className="text-white font-bold group-hover/card:text-primary-400 transition-colors">Dr. Sarah Jen</div>
-                                                <div className="text-xs text-gray-400">Cardiologist</div>
-                                            </div>
+                                {/* Floating Card inside Phone */}
+                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] p-3 bg-slate-800/80 backdrop-blur-md rounded-xl border border-slate-700 shadow-lg">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-400">
+                                            <Activity size={18} />
                                         </div>
-                                        <div className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded">10:00 AM</div>
-                                    </div>
-                                    <div className="w-full h-1 bg-gray-800 rounded-full overflow-hidden">
-                                        <motion.div
-                                            initial={{ width: "30%" }}
-                                            whileInView={{ width: "75%" }}
-                                            transition={{ duration: 1.5, delay: 0.5 }}
-                                            className="h-full bg-primary-500"
-                                        />
-                                    </div>
-                                    <div className="flex justify-between mt-2 text-[10px] text-gray-500 font-medium">
-                                        <span>Wait time</span>
-                                        <span className="text-primary-400">~2 mins</span>
+                                        <div>
+                                            <div className="text-[10px] text-slate-400">Next Available</div>
+                                            <div className="text-sm font-semibold text-white">Dr. Sarah Cole</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Stats Grid */}
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5 text-center hover:bg-white/10 transition-colors">
-                                    <Zap className="w-6 h-6 text-yellow-500 mx-auto mb-2" />
-                                    <div className="text-2xl font-bold text-white">98%</div>
-                                    <div className="text-xs text-gray-500">Efficiency</div>
-                                </div>
-                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5 text-center hover:bg-white/10 transition-colors">
-                                    <ShieldCheck className="w-6 h-6 text-green-500 mx-auto mb-2" />
-                                    <div className="text-2xl font-bold text-white">100%</div>
-                                    <div className="text-xs text-gray-500">Secure</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Bottom Action */}
-                        <div className="p-4 bg-black/40 border-t border-white/5">
-                            <Button className="w-full bg-primary-600 hover:bg-primary-500 text-white rounded-xl py-6 h-auto text-sm font-semibold shadow-lg shadow-primary-900/20">
-                                View Full Dashboard
-                            </Button>
                         </div>
                     </motion.div>
 
-                    {/* Floating Notifications */}
+                    {/* Background Decorative Elements behind the phone */}
+                    <div className="absolute top-[10%] right-[5%] w-[400px] h-[400px] border border-slate-800/50 rounded-full animate-[spin_60s_linear_infinite]" />
+                    <div className="absolute top-[20%] right-[15%] w-[300px] h-[300px] border border-dashed border-slate-800 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
+
+                    {/* Floating Info Cards outside phone */}
+
+                    {/* Card 1: Verified */}
                     <motion.div
-                        animate={{ y: [-10, 10, -10] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute top-20 right-0 bg-gray-900/90 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-xl z-30 max-w-[200px]"
+                        style={{ y: y2 }}
+                        className="absolute top-[20%] left-0 z-30 p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-xl max-w-[200px]"
                     >
-                        <div className="flex gap-3">
-                            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 shrink-0">
-                                <Calendar className="w-5 h-5" />
+                        <div className="flex gap-3 items-center mb-2">
+                            <div className="p-2 bg-sky-500/10 rounded-lg">
+                                <Shield className="w-5 h-5 text-sky-400" />
                             </div>
-                            <div>
-                                <div className="text-xs text-gray-400">Appointment</div>
-                                <div className="text-sm font-bold text-white leading-tight">Confirmed</div>
+                            <span className="text-sm font-bold text-white">Verified</span>
+                        </div>
+                        <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                            <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: "100%" }}
+                                transition={{ duration: 1.5, delay: 1 }}
+                                className="h-full bg-sky-500"
+                            />
+                        </div>
+                    </motion.div>
+
+                    {/* Card 2: Rating */}
+                    <motion.div
+                        animate={{ x: [0, 10, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute top-[60%] right-[0%] z-10 p-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-xl flex items-center gap-3"
+                    >
+                        <div className="flex -space-x-3">
+                            {[1, 2, 3].map(i => (
+                                <div key={i} className="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-700" />
+                            ))}
+                        </div>
+                        <div>
+                            <div className="flex text-yellow-500 text-xs">
+                                <Star className="w-3 h-3 fill-yellow-500" />
+                                <Star className="w-3 h-3 fill-yellow-500" />
+                                <Star className="w-3 h-3 fill-yellow-500" />
                             </div>
+                            <div className="text-xs text-slate-300 font-semibold mt-0.5">Top Rated</div>
                         </div>
                     </motion.div>
 
@@ -266,3 +349,5 @@ export default function Hero() {
         </section>
     );
 }
+
+// Add these to global css if not present, but for now relying on Tailwind config

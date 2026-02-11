@@ -103,7 +103,7 @@ export default function Features() {
                     <defs>
                         <linearGradient id="gradFeature" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-                            <stop offset="50%" stopColor="#10b981" stopOpacity="0.5" />
+                            <stop offset="50%" stopColor="#0ea5e9" stopOpacity="0.5" />
                             <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
                         </linearGradient>
                     </defs>
@@ -129,7 +129,7 @@ export default function Features() {
                             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
                         >
                             engineered for <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-emerald-600">Peace of Mind.</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600">Peace of Mind.</span>
                         </motion.h2>
                     </div>
 

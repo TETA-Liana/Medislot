@@ -39,13 +39,13 @@ export default function Header() {
                 <Link href="/" className="flex items-center gap-2 group">
                     {/* Logo - Navigo Style */}
                     <div className="relative">
-                        <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary-400 to-green-600 opacity-75 blur group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                        <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 opacity-75 blur group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                         <div className="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center border border-white/10">
-                            <span className="text-primary-400 font-bold text-xl">M</span>
+                            <span className="text-sky-400 font-bold text-xl">M</span>
                         </div>
                     </div>
                     <span className="text-2xl font-bold text-white tracking-wide">
-                        Medi<span className="text-primary-400">Slot</span>
+                        Medi<span className="text-sky-400">Slot</span>
                     </span>
                 </Link>
 
@@ -58,7 +58,7 @@ export default function Header() {
                             className="text-gray-300 hover:text-white font-medium text-sm tracking-wide transition-colors relative group"
                         >
                             {link.name}
-                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-400 transition-all group-hover:w-full duration-300 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
+                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-400 transition-all group-hover:w-full duration-300 shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
                         </Link>
                     ))}
                 </nav>
@@ -66,7 +66,7 @@ export default function Header() {
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-6">
                     <Button
-                        className="rounded-full px-8 py-6 bg-primary-600 hover:bg-primary-500 text-white font-semibold text-base shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transition-all transform hover:-translate-y-0.5 border border-primary-400/20"
+                        className="rounded-full px-8 py-6 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-base shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.6)] transition-all transform hover:-translate-y-0.5 border border-sky-400/20"
                     >
                         Book Now
                     </Button>
@@ -105,7 +105,7 @@ export default function Header() {
                             >
                                 <Link
                                     href={link.href}
-                                    className="text-3xl font-bold text-white hover:text-primary-400 transition-colors block"
+                                    className="text-3xl font-bold text-white hover:text-sky-400 transition-colors block"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {link.name}
@@ -118,7 +118,7 @@ export default function Header() {
                             transition={{ delay: 0.5 }}
                             className="mt-8"
                         >
-                            <Button className="w-full py-6 rounded-xl text-lg bg-primary-600 hover:bg-primary-500 shadow-lg shadow-primary-500/20">Download App</Button>
+                            <Button className="w-full py-6 rounded-xl text-lg bg-sky-600 hover:bg-sky-500 shadow-lg shadow-sky-500/20">Download App</Button>
                         </motion.div>
                     </motion.div>
                 )}
