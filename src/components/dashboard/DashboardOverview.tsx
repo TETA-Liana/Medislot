@@ -28,7 +28,12 @@ const StatusBadge = ({ status }: { status: string }) => {
     );
 };
 
-export default function DashboardOverview({ appointments, doctors }: { appointments: any[], doctors: any[] }) {
+export default function DashboardOverview({ appointments, doctors, onOpenBooking, onOpenDetails }: {
+    appointments: any[],
+    doctors: any[],
+    onOpenBooking: (doc?: any) => void,
+    onOpenDetails: (doc: any) => void
+}) {
     return (
         <div className="grid lg:grid-cols-3 gap-8">
             {/* Left Column - Timeline & Calendar */}
@@ -130,7 +135,10 @@ export default function DashboardOverview({ appointments, doctors }: { appointme
                                 </div>
                             ))}
                         </div>
-                        <Button className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-2xl h-12 shadow-lg shadow-emerald-500/20">
+                        <Button
+                            className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-2xl h-12 shadow-lg shadow-emerald-500/20"
+                            onClick={() => onOpenBooking()}
+                        >
                             Schedule New Slot
                         </Button>
                     </div>
@@ -148,7 +156,8 @@ export default function DashboardOverview({ appointments, doctors }: { appointme
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.3 + idx * 0.1 }}
-                            className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-all group"
+                            onClick={() => onOpenDetails(doctor)}
+                            className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-all group cursor-pointer"
                         >
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">

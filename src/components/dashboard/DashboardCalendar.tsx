@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
-export default function DashboardCalendar() {
+export default function DashboardCalendar({ onOpenBooking }: { onOpenBooking: (doc?: any) => void }) {
     const [currentMonth, setCurrentMonth] = useState('October 2024');
 
     // Abstract calendar data
@@ -34,7 +34,10 @@ export default function DashboardCalendar() {
                         <span className="px-4 text-sm font-black text-slate-800">{currentMonth}</span>
                         <button className="p-2 hover:bg-white rounded-lg transition-all text-slate-500 hover:text-emerald-600"><ChevronRight size={20} /></button>
                     </div>
-                    <Button className="h-12 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-500/20 flex items-center gap-2 transition-all">
+                    <Button
+                        className="h-12 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-500/20 flex items-center gap-2 transition-all"
+                        onClick={() => onOpenBooking()}
+                    >
                         <Plus size={18} />
                         Add New
                     </Button>

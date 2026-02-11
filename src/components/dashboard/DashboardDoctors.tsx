@@ -14,7 +14,11 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
-export default function DashboardDoctors({ doctors }: { doctors: any[] }) {
+export default function DashboardDoctors({ doctors, onOpenDetails, onOpenBooking }: {
+    doctors: any[],
+    onOpenDetails: (doc: any) => void,
+    onOpenBooking: (doc: any) => void
+}) {
     const [searchQuery, setSearchQuery] = useState('');
 
     const filteredDoctors = doctors.filter(doc =>
@@ -91,8 +95,19 @@ export default function DashboardDoctors({ doctors }: { doctors: any[] }) {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <Button variant="outline" className="h-12 rounded-xl border-slate-200 font-bold text-slate-600 text-sm">Profile</Button>
-                            <Button className="h-12 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-all">Book Now</Button>
+                            <Button
+                                variant="outline"
+                                className="h-12 rounded-xl border-slate-200 font-bold text-slate-600 text-sm"
+                                onClick={() => onOpenDetails(doc)}
+                            >
+                                Profile
+                            </Button>
+                            <Button
+                                className="h-12 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-all"
+                                onClick={() => onOpenBooking(doc)}
+                            >
+                                Book Now
+                            </Button>
                         </div>
                     </motion.div>
                 ))}

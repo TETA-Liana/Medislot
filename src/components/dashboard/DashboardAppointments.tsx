@@ -10,7 +10,8 @@ import {
     Filter,
     FileText,
     MessageSquare,
-    Video
+    Video,
+    Plus
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -29,7 +30,7 @@ const StatusBadge = ({ status }: { status: string }) => {
     );
 };
 
-export default function DashboardAppointments({ appointments }: { appointments: any[] }) {
+export default function DashboardAppointments({ appointments, onOpenBooking }: { appointments: any[], onOpenBooking: (doc?: any) => void }) {
     const [filter, setFilter] = useState('All');
 
     const filteredAppointments = filter === 'All'
@@ -58,6 +59,13 @@ export default function DashboardAppointments({ appointments }: { appointments: 
                         ))}
                     </div>
                 </div>
+                <Button
+                    className="h-12 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-500/20 flex items-center gap-2 transition-all"
+                    onClick={() => onOpenBooking()}
+                >
+                    <Plus size={18} />
+                    Book New Appointment
+                </Button>
             </div>
 
             {/* List */}
@@ -122,7 +130,7 @@ export default function DashboardAppointments({ appointments }: { appointments: 
                         </div>
                         <h3 className="text-xl font-bold text-slate-800 mb-2">No appointments found</h3>
                         <p className="text-slate-500 mb-8">You don't have any appointments matching this category.</p>
-                        <Button className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-3 rounded-xl font-bold">Book a New Session</Button>
+                        <Button className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-3 rounded-xl font-bold" onClick={() => onOpenBooking()}>Book a New Session</Button>
                     </div>
                 )}
             </div>

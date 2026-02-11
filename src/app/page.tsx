@@ -18,10 +18,9 @@ export default function Home() {
     return (
         <main className={`min-h-screen transition-colors duration-500 ${view === 'landing' ? 'bg-[#f8fafc]' : 'bg-[#f1f5f9]'} selection:bg-emerald-500/30 selection:text-emerald-900`}>
             <CustomCursor />
-            <Header view={view} setView={setView} />
-
             {view === 'landing' ? (
                 <div className="relative">
+                    <Header view={view} setView={setView} />
                     <Hero onBook={() => setView('dashboard')} />
                     <TrustSignals />
                     <div id="about">

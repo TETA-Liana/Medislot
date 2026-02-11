@@ -17,9 +17,14 @@ import DashboardAppointments from './DashboardAppointments';
 import DashboardDoctors from './DashboardDoctors';
 import DashboardCalendar from './DashboardCalendar';
 import DashboardProfile from './DashboardProfile';
+import BookingModal from './BookingModal';
+import DoctorDetailsModal from './DoctorDetailsModal';
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState('Overview');
+    const [isBookingOpen, setIsBookingOpen] = useState(false);
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+    const [selectedDoctor, setSelectedDoctor] = useState<any>(null);
 
     const appointments = [
         { id: 1, doctor: 'Dr. Sarah Mitchell', specialty: 'Cardiologist', time: '10:30 AM', date: 'Oct 24, 2024', status: 'Upcoming' },
@@ -37,8 +42,34 @@ export default function Dashboard() {
         { id: 6, name: 'Dr. Leslie Alexander', specialty: 'Dentistry', hospital: 'Smile Care', rating: 4.8, available: true },
     ];
 
+    const handleOpenBooking = (doctor: any = null) => {
+        setSelectedDoctor(doctor);
+        setIsBookingOpen(true);
+    };
+
+    const handleOpenDetails = (doctor: any) => {
+        setSelectedDoctor(doctor);
+        setIsDetailsOpen(true);
+    };
+
     return (
         <div className="pt-0 min-h-screen bg-slate-50 flex">
+            <BookingModal
+                isOpen={isBookingOpen}
+                onClose={() => setIsBookingOpen(false)}
+                doctors={doctors}
+                preSelectedDoctor={selectedDoctor}
+            />
+            <DoctorDetailsModal
+                isOpen={isDetailsOpen}
+                onClose={() => setIsDetailsOpen(false)}
+                doctor={selectedDoctor}
+                onBook={(doc) => {
+                    setIsDetailsOpen(false);
+                    handleOpenBooking(doc);
+                }}
+            />
+
             {/* Sidebar */}
             <aside className="w-64 bg-white border-r border-slate-200 hidden lg:flex flex-col p-8 gap-10 fixed h-full z-10 selection:bg-emerald-500/30">
                 <div className="flex items-center gap-3 px-2">
@@ -68,11 +99,11 @@ export default function Dashboard() {
                     ))}
                 </nav>
 
-                <div className="mt-auto bg-slate-900 rounded-[2rem] p-6 text-white relative overflow-hidden group">
-                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                <div className="mt-auto bg-emerald-50 rounded-[2rem] p-6 text-emerald-900 relative overflow-hidden group border border-emerald-100">
+                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
                     <h4 className="font-black text-sm mb-2 relative z-10">Care Pro Plan</h4>
-                    <p className="text-[10px] text-slate-400 mb-5 relative z-10 font-bold uppercase tracking-widest leading-relaxed">Unlimited history & smart insights.</p>
-                    <Button className="w-full h-10 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest rounded-xl relative z-10 border-0">Upgrade</Button>
+                    <p className="text-[10px] text-emerald-600/70 mb-5 relative z-10 font-bold uppercase tracking-widest leading-relaxed">Unlimited history & smart insights.</p>
+                    <Button className="w-full h-10 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest rounded-xl relative z-10 border-0 shadow-lg shadow-emerald-500/20" onClick={() => handleOpenBooking()}>Upgrade</Button>
                 </div>
             </aside>
 
@@ -106,10 +137,32 @@ export default function Dashboard() {
                 </div>
 
                 <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
-                    {activeTab === 'Overview' && <DashboardOverview appointments={appointments} doctors={doctors} />}
-                    {activeTab === 'Appointments' && <DashboardAppointments appointments={appointments} />}
-                    {activeTab === 'Doctors' && <DashboardDoctors doctors={doctors} />}
-                    {activeTab === 'Calendar' && <DashboardCalendar />}
+                    {activeTab === 'Overview' && (
+                        <DashboardOverview
+                            appointments={appointments}
+                            doctors={doctors}
+                            onOpenBooking={handleOpenBooking}
+                            onOpenDetails={handleOpenDetails}
+                        />
+                    )}
+                    {activeTab === 'Appointments' && (
+                        <DashboardAppointments
+                            appointments={appointments}
+                            onOpenBooking={handleOpenBooking}
+                        />
+                    )}
+                    {activeTab === 'Doctors' && (
+                        <DashboardDoctors
+                            doctors={doctors}
+                            onOpenDetails={handleOpenDetails}
+                            onOpenBooking={handleOpenBooking}
+                        />
+                    )}
+                    {activeTab === 'Calendar' && (
+                        <DashboardCalendar
+                            onOpenBooking={handleOpenBooking}
+                        />
+                    )}
                     {activeTab === 'Profile' && <DashboardProfile />}
                 </div>
             </main>
