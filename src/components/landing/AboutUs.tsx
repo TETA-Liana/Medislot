@@ -72,7 +72,7 @@ export default function AboutUs() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight"
+                        className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-5 leading-tight"
                     >
                         Revolutionizing Healthcare{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-sky-500">
@@ -85,7 +85,7 @@ export default function AboutUs() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-lg text-slate-600 leading-relaxed"
+                        className="text-base md:text-lg text-slate-600 leading-relaxed"
                     >
                         We're on a mission to make quality healthcare accessible to everyone through intelligent scheduling,
                         real-time availability, and seamless digital experiences.
@@ -107,9 +107,9 @@ export default function AboutUs() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.4 + idx * 0.1 }}
-                            className="bg-white rounded-2xl p-6 text-center shadow-lg border border-slate-200 hover:shadow-xl hover:border-blue-200 transition-all group"
+                            className="bg-white rounded-2xl p-6 text-center shadow-lg border border-slate-200 hover:shadow-2xl hover:border-blue-300 hover:-translate-y-2 transition-all group relative overflow-hidden"
                         >
-                            <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform">
+                            <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform">
                                 {stat.value}
                             </div>
                             <div className="text-sm text-slate-600 font-medium">{stat.label}</div>
@@ -126,17 +126,17 @@ export default function AboutUs() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 + idx * 0.1 }}
-                            className="bg-white rounded-2xl p-8 shadow-md border border-slate-200 hover:shadow-xl hover:border-blue-300 transition-all group"
+                            className="bg-white rounded-2xl p-8 shadow-md border border-slate-200 hover:shadow-2xl hover:border-blue-300 hover:-translate-y-1 transition-all group relative overflow-hidden"
                         >
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center group-hover:bg-blue-600 transition-colors">
                                     <value.icon className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                                         {value.title}
                                     </h3>
-                                    <p className="text-slate-600 leading-relaxed">
+                                    <p className="text-sm text-slate-600 leading-relaxed">
                                         {value.description}
                                     </p>
                                 </div>
@@ -144,36 +144,6 @@ export default function AboutUs() {
                         </motion.div>
                     ))}
                 </div>
-
-                {/* CTA Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="bg-gradient-to-r from-blue-600 to-sky-500 rounded-3xl p-10 md:p-12 text-center shadow-2xl relative overflow-hidden"
-                >
-                    {/* Decorative elements */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-2xl" />
-
-                    <div className="relative z-10">
-                        <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            Ready to Experience Better Healthcare?
-                        </h3>
-                        <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-                            Join thousands of patients who have simplified their healthcare journey with Medislot.
-                        </p>
-                        <div className="flex flex-wrap gap-4 justify-center">
-                            <Button className="h-14 px-8 rounded-full bg-white text-blue-600 hover:bg-blue-50 font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                                Get Started Free
-                            </Button>
-                            <Button variant="outline" className="h-14 px-8 rounded-full border-2 border-white text-white hover:bg-white/10 font-semibold transition-all hover:scale-105">
-                                Learn More
-                            </Button>
-                        </div>
-                    </div>
-                </motion.div>
 
             </div>
         </section>
