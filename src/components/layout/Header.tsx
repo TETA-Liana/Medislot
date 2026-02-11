@@ -31,8 +31,8 @@ export default function Header() {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? 'bg-[#020617]/80 backdrop-blur-xl border-b border-white/5 py-4'
-                    : 'bg-transparent py-8'
+                ? 'bg-[#020617]/80 backdrop-blur-xl border-b border-white/5 py-4'
+                : 'bg-transparent py-8'
                 }`}
         >
             <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
@@ -68,7 +68,7 @@ export default function Header() {
                     <Button
                         className="rounded-full px-8 py-6 bg-primary-600 hover:bg-primary-500 text-white font-semibold text-base shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transition-all transform hover:-translate-y-0.5 border border-primary-400/20"
                     >
-                        Get our app <Download className="ml-2 w-5 h-5" />
+                        Book Now
                     </Button>
                 </div>
 

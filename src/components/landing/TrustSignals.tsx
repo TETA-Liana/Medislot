@@ -16,38 +16,32 @@ const brands = [
 
 export default function TrustSignals() {
     return (
-        <section className="py-20 bg-gray-50 border-y border-gray-100 overflow-hidden">
-            <div className="container mx-auto px-4 md:px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-12"
-                >
-                    <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest">Trusted by leading healthcare providers</p>
-                </motion.div>
+        <section className="py-16 bg-[#020617] border-y border-white/5 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#020617] via-transparent to-[#020617] z-10 pointer-events-none" />
 
-                <div className="flex flex-wrap justify-center gap-12 md:gap-20 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                    {brands.map((brand, idx) => {
+            <div className="container mx-auto px-6 mb-8 text-center relative z-20">
+                <p className="text-sm font-medium text-gray-500 uppercase tracking-widest">Trusted by Industry Leaders</p>
+            </div>
+
+            <div className="flex overflow-hidden relative z-0">
+                <motion.div
+                    className="flex gap-16 min-w-full items-center justify-around px-8"
+                    animate={{ x: ["0%", "-100%"] }}
+                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                >
+                    {[...brands, ...brands, ...brands].map((brand, idx) => { // Tripling the array for smooth loop
                         const Icon = brand.icon;
                         return (
-                            <motion.div
+                            <div
                                 key={idx}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                whileHover={{ scale: 1.1, color: '#3b82f6' }}
-                                className="flex items-center gap-2 group cursor-pointer"
+                                className="flex items-center gap-3 opacity-40 hover:opacity-100 transition-opacity duration-300 group cursor-pointer flex-shrink-0"
                             >
-                                <div className="p-3 bg-white rounded-xl shadow-sm group-hover:shadow-md transition-shadow">
-                                    <Icon className="w-8 h-8 text-gray-400 group-hover:text-blue-500 transition-colors" />
-                                </div>
-                                <span className="text-xl font-bold text-gray-400 group-hover:text-gray-800 transition-colors hidden md:block">{brand.name}</span>
-                            </motion.div>
+                                <Icon className="w-8 h-8 text-gray-400 group-hover:text-primary-400 group-hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all" />
+                                <span className="text-xl font-bold text-gray-300 group-hover:text-white transition-colors">{brand.name}</span>
+                            </div>
                         );
                     })}
-                </div>
+                </motion.div>
             </div>
         </section>
     );
