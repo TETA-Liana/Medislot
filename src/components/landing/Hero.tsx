@@ -24,7 +24,7 @@ export default function Hero() {
     }));
 
     return (
-        <section className="relative min-h-screen bg-[#020617] overflow-hidden flex items-center pt-20 lg:pt-0 selection:bg-sky-500/30 selection:text-sky-200">
+        <section className="relative min-h-[90vh] bg-[#020617] overflow-hidden flex items-center pt-32 pb-20 lg:pt-24 selection:bg-sky-500/30 selection:text-sky-200">
 
             {/* Animated Particles */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -105,7 +105,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-5xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6"
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-5"
                     >
                         <motion.span
                             initial={{ opacity: 0, x: -20 }}
@@ -167,9 +167,9 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-lg text-slate-400 max-w-xl mb-8 leading-relaxed"
+                        className="text-base md:text-lg text-slate-400 max-w-lg mb-7 leading-relaxed"
                     >
-                        Smart scheduling powered by real-time availability. Get the fastest appointments, track your wellness in real-time, and avoid waiting rooms with Medislot&apos;s intelligent care system.
+                        Smart scheduling powered by real-time availability. Book appointments instantly and track your wellness journey.
                     </motion.p>
 
                     {/* Buttons */}
@@ -183,10 +183,10 @@ export default function Hero() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <Button className="relative h-14 px-8 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_40px_rgba(14,165,233,0.5)] transition-all border-0 group overflow-hidden">
+                            <Button className="relative h-12 px-7 text-sm rounded-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_40px_rgba(14,165,233,0.5)] transition-all border-0 group overflow-hidden">
                                 <span className="relative z-10 flex items-center">
                                     Get the App
-                                    <Smartphone className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
+                                    <Smartphone className="ml-2 w-4 h-4 group-hover:rotate-12 transition-transform" />
                                 </span>
                                 {/* Animated shine effect */}
                                 <motion.div
@@ -200,9 +200,9 @@ export default function Hero() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <Button variant="outline" className="h-14 px-8 rounded-full border-slate-700 bg-slate-900/50 text-white hover:bg-slate-800 hover:text-sky-300 hover:border-sky-500/50 transition-all group">
+                            <Button variant="outline" className="h-12 px-7 text-sm rounded-full border-slate-700 bg-slate-900/50 text-white hover:bg-slate-800 hover:text-sky-300 hover:border-sky-500/50 transition-all group">
                                 How it works
-                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </motion.div>
                     </motion.div>
@@ -212,18 +212,18 @@ export default function Hero() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.8 }}
-                        className="mt-12 flex items-center gap-8 border-t border-slate-800 pt-8 w-full max-w-md"
+                        className="mt-10 flex items-center gap-6 border-t border-slate-800 pt-6 w-full max-w-md"
                     >
                         <div>
-                            <div className="text-2xl font-bold text-white">20k+</div>
+                            <div className="text-xl font-bold text-white">20k+</div>
                             <div className="text-xs text-slate-500 uppercase tracking-wider">Patients</div>
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-white">4.9/5</div>
+                            <div className="text-xl font-bold text-white">4.9/5</div>
                             <div className="text-xs text-slate-500 uppercase tracking-wider">Rating</div>
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-white">15min</div>
+                            <div className="text-xl font-bold text-white">15min</div>
                             <div className="text-xs text-slate-500 uppercase tracking-wider">Avg Wait</div>
                         </div>
                     </motion.div>
