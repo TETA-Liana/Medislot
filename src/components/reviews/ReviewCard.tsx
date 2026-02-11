@@ -23,12 +23,12 @@ export default function ReviewCard({ review, delay }: ReviewCardProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay }}
-            whileHover={{ y: -5 }}
-            className="group relative bg-[#0a1628]/60 backdrop-blur-md border border-slate-700/50 rounded-3xl p-8 hover:border-sky-500/50 transition-all duration-300 shadow-xl"
+            whileHover={{ y: -8 }}
+            className="group relative bg-white border border-slate-100 rounded-[2.5rem] p-10 hover:border-emerald-300 hover:shadow-2xl transition-all duration-300 shadow-xl"
         >
             {/* Quote Icon Background */}
-            <div className="absolute top-6 right-8 text-sky-500/10 group-hover:text-sky-500/20 transition-colors">
-                <Quote size={48} />
+            <div className="absolute top-10 right-10 text-emerald-500/5 group-hover:text-emerald-500/10 transition-colors">
+                <Quote size={64} fill="currentColor" />
             </div>
 
             <div className="relative z-10">
@@ -37,29 +37,33 @@ export default function ReviewCard({ review, delay }: ReviewCardProps) {
                     {[...Array(5)].map((_, i) => (
                         <Star
                             key={i}
-                            size={16}
-                            className={`${i < review.rating ? 'text-yellow-500 fill-yellow-500' : 'text-slate-600'
+                            size={18}
+                            className={`${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200 fill-slate-200'
                                 }`}
                         />
                     ))}
                 </div>
 
                 {/* Content */}
-                <p className="text-slate-300 text-base leading-relaxed mb-8 italic">
+                <p className="text-slate-500 text-lg leading-relaxed mb-10 italic">
                     "{review.content}"
                 </p>
 
                 {/* Author */}
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden">
-                        {/* Placeholder for avatar */}
-                        <div className="w-full h-full bg-gradient-to-br from-sky-400/20 to-blue-600/20 flex items-center justify-center text-sky-400 font-bold">
-                            {review.name.charAt(0)}
+                <div className="flex items-center gap-5 pt-6 border-t border-slate-50">
+                    <div className="relative">
+                        <div className="w-14 h-14 rounded-full bg-emerald-50 border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
+                            <div className="w-full h-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-black text-xl">
+                                {review.name.charAt(0)}
+                            </div>
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center">
+                            <Star size={10} className="text-white fill-white" />
                         </div>
                     </div>
                     <div>
-                        <h4 className="text-white font-bold text-sm tracking-wide">{review.name}</h4>
-                        <p className="text-sky-400 text-xs font-semibold uppercase tracking-widest">{review.role}</p>
+                        <h4 className="text-slate-800 font-black text-base">{review.name}</h4>
+                        <p className="text-emerald-500 text-[10px] font-black uppercase tracking-widest">{review.role}</p>
                     </div>
                 </div>
             </div>

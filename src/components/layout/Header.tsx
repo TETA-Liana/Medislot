@@ -1,19 +1,22 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, LayoutDashboard, Home } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
-export default function Header() {
+interface HeaderProps {
+    view: string;
+    setView: (view: string) => void;
+}
+
+export default function Header({ view, setView }: HeaderProps) {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            // More aggressive scroll change for dark mode nav
             setScrolled(window.scrollY > 10);
         };
         window.addEventListener('scroll', handleScroll);
@@ -21,60 +24,76 @@ export default function Header() {
     }, []);
 
     const navLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'Doctors', href: '/doctors' },
-        { name: 'Services', href: '/services' },
-        { name: 'Reviews', href: '/reviews' },
-        { name: 'Contact', href: '/contact-us' },
+        { name: 'Home', action: () => setView('landing') },
+        { name: 'About', href: '#about' },
+        { name: 'Schedule', href: '#schedule' },
+        { name: 'Reviews', href: '#reviews' },
+        { name: 'Contact', href: '#contact' }
     ];
 
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                ? 'bg-slate-900/40 backdrop-blur-md border-b border-white/10 py-4 shadow-lg shadow-black/5'
+                ? 'bg-white/80 backdrop-blur-md border-b border-emerald-100 py-4 shadow-sm'
                 : 'bg-transparent py-6'
                 }`}
         >
             <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2 group">
-                    {/* Logo - Navigo Style */}
-                    <div className="relative">
-                        <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 opacity-75 blur group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                        <div className="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center border border-white/10">
-                            <span className="text-sky-400 font-bold text-xl">M</span>
-                        </div>
-                    </div>
-                    <span className="text-2xl font-bold text-white tracking-wide">
-                        Medi<span className="text-sky-400">Slot</span>
+                <div
+                    onClick={() => setView('landing')}
+                    className="flex items-center gap-2 cursor-pointer group"
+                >
+                    <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-600/20 group-hover:scale-110 transition-transform">M</div>
+                    <span className="text-2xl font-black text-slate-800 tracking-tighter">
+                        Medi<span className="text-emerald-500">Slot</span>
                     </span>
-                </Link>
+                </div>
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-10">
                     {navLinks.map((link) => (
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            className="text-gray-300 hover:text-white font-medium text-sm tracking-wide transition-colors relative group"
-                        >
-                            {link.name}
-                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-400 transition-all group-hover:w-full duration-300 shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
-                        </Link>
+                        link.action ? (
+                            <button
+                                key={link.name}
+                                onClick={link.action}
+                                className={`text-sm font-bold tracking-tight transition-all relative group ${view === link.name.toLowerCase() ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-500'
+                                    }`}
+                            >
+                                {link.name}
+                                <span className={`absolute -bottom-1 left-0 h-0.5 bg-emerald-500 transition-all duration-300 ${view === link.name.toLowerCase() ? 'w-full' : 'w-0 group-hover:w-full font-bold'}`} />
+                            </button>
+                        ) : (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                className="text-slate-500 hover:text-emerald-500 font-bold text-sm tracking-tight transition-all relative group"
+                            >
+                                {link.name}
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-500 transition-all group-hover:w-full duration-300" />
+                            </a>
+                        )
                     ))}
                 </nav>
 
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-6">
-                    <Button
-                        className="rounded-full px-8 py-6 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-base shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.6)] transition-all transform hover:-translate-y-0.5 border border-sky-400/20"
+                    <button
+                        onClick={() => setView('dashboard')}
+                        className="text-slate-800 font-bold text-sm hover:text-emerald-600 transition-colors"
                     >
-                        Book Now
+                        Sign in
+                    </button>
+                    <Button
+                        onClick={() => setView('dashboard')}
+                        className="rounded-xl px-7 py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5"
+                    >
+                        {view === 'landing' ? 'Get Started' : 'Dashboard'}
                     </Button>
                 </div>
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden p-2 text-white"
+                    className="md:hidden p-2 text-slate-800"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
                     {mobileMenuOpen ? <X /> : <Menu />}
@@ -85,40 +104,42 @@ export default function Header() {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: '100vh' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden fixed inset-0 bg-[#020617] z-40 pt-24 px-6 flex flex-col gap-6"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        className="md:hidden fixed inset-0 bg-white z-[60] pt-24 px-6 flex flex-col gap-8 items-center justify-center text-center"
                     >
                         <button
-                            className="absolute top-6 right-6 p-2 text-white"
+                            className="absolute top-6 right-6 p-2 text-slate-800"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            <X />
+                            <X size={32} />
                         </button>
                         {navLinks.map((link, idx) => (
                             <motion.div
                                 key={link.name}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
                             >
-                                <Link
-                                    href={link.href}
-                                    className="text-3xl font-bold text-white hover:text-sky-400 transition-colors block"
-                                    onClick={() => setMobileMenuOpen(false)}
+                                <button
+                                    className="text-4xl font-black text-slate-800 hover:text-emerald-500 transition-colors"
+                                    onClick={() => {
+                                        if (link.action) link.action();
+                                        setMobileMenuOpen(false);
+                                    }}
                                 >
                                     {link.name}
-                                </Link>
+                                </button>
                             </motion.div>
                         ))}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="mt-8"
+                            className="w-full max-w-xs mt-8"
                         >
-                            <Button className="w-full py-6 rounded-xl text-lg bg-sky-600 hover:bg-sky-500 shadow-lg shadow-sky-500/20">Download App</Button>
+                            <Button className="w-full py-7 rounded-2xl text-xl font-bold bg-emerald-600 hover:bg-emerald-500 shadow-xl shadow-emerald-500/20">Book Now</Button>
                         </motion.div>
                     </motion.div>
                 )}
