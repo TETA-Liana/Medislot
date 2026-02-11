@@ -3,24 +3,24 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #101828;
-    /* ... rest of vars unchanged ... */
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
+    --background: #020617;
+    /* Dark slate 950 base */
+    --foreground: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    --primary: #10b981;
+    --secondary: #0f766e;
   }
 }
 
 body {
-  @apply bg-background text-foreground;
+  background-color: #020617;
+  /* Dark body */
+  color: #ffffff;
+  font-family: var(--font-inter), sans-serif;
+  @apply antialiased overflow-x-hidden;
 }
 
 h1,
@@ -29,9 +29,21 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-semibold;
+  @apply font-bold tracking-tight text-white;
 }
 
-.font-plaster {
-  font-family: 'Plaster', cursive;
+/* Custom Text Stroke or Glow Effects */
+.text-outline {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: transparent;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
