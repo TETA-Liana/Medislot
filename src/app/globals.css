@@ -23,6 +23,19 @@ body {
   @apply antialiased overflow-x-hidden;
 }
 
+@media (min-width: 1024px) {
+  body {
+    cursor: none;
+  }
+
+  a,
+  button,
+  [role="button"],
+  .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
 h1,
 h2,
 h3,
