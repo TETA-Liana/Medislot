@@ -11,32 +11,32 @@ interface HeroProps {
 
 export default function Hero({ onBook }: HeroProps) {
     return (
-        <section className="relative min-h-screen bg-[#f8fafc] overflow-hidden flex items-center pt-32 pb-20 selection:bg-emerald-500/30 selection:text-emerald-900">
+        <section className="relative min-h-screen bg-[#f8fafc] overflow-hidden flex items-center pt-24 pb-20 selection:bg-emerald-500/30 selection:text-emerald-900">
             {/* Background Decorative Blobs - matching the image's soft lighting */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-emerald-500/5 rounded-full blur-[100px]" />
                 <div className="absolute bottom-[10%] right-[-5%] w-[30vw] h-[30vw] bg-teal-500/5 rounded-full blur-[80px]" />
             </div>
 
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-6 md:px-12 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
 
                     {/* Left Content */}
-                    <div className="flex flex-col items-start gap-8">
+                    <div className="flex flex-col items-start gap-6">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-100 shadow-sm"
                         >
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-[10px] font-black uppercase text-emerald-600 tracking-widest">Trust & Care First</span>
+                            <span className="text-[9px] font-black uppercase text-emerald-600 tracking-widest">Trust & Care First</span>
                         </motion.div>
 
                         <motion.h1
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
-                            className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight"
+                            className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight"
                         >
                             <span className="text-emerald-600">Take care</span> Of your <br />
                             body and it will <br />
@@ -55,7 +55,7 @@ export default function Hero({ onBook }: HeroProps) {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="text-slate-500 text-lg md:text-xl max-w-xl leading-relaxed"
+                            className="text-slate-500 text-base md:text-lg max-w-xl leading-relaxed"
                         >
                             Talk with a doctor using our highly secured, HIPAA compliant platform.
                             Seamless end-to-end encrypted scheduling at your fingertips.
@@ -69,14 +69,14 @@ export default function Hero({ onBook }: HeroProps) {
                         >
                             <Button
                                 onClick={onBook}
-                                className="h-16 px-10 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg shadow-xl shadow-emerald-500/20 transition-all transform hover:-translate-y-1 group"
+                                className="h-14 px-8 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-base shadow-xl shadow-emerald-500/20 transition-all transform hover:-translate-y-1 group"
                             >
                                 Get Appointment
                                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
                             <Button
                                 variant="outline"
-                                className="h-16 px-10 rounded-2xl border-2 border-slate-200 bg-white text-slate-800 font-bold text-lg hover:bg-slate-50 hover:border-emerald-500/50 transition-all"
+                                className="h-14 px-8 rounded-2xl border-2 border-slate-200 bg-white text-slate-800 font-bold text-base hover:bg-slate-50 hover:border-emerald-500/50 transition-all"
                             >
                                 Get Ready
                             </Button>
@@ -97,9 +97,9 @@ export default function Hero({ onBook }: HeroProps) {
                                 <div key={i} className="flex flex-col gap-1">
                                     <div className="flex items-center gap-2 text-emerald-600">
                                         <stat.icon size={16} />
-                                        <span className="text-xl font-black text-slate-800 tracking-tight">{stat.val}</span>
+                                        <span className="text-lg font-black text-slate-800 tracking-tight">{stat.val}</span>
                                     </div>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</span>
+                                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</span>
                                 </div>
                             ))}
                         </motion.div>
@@ -148,8 +148,8 @@ export default function Hero({ onBook }: HeroProps) {
                                 <Activity size={24} />
                             </div>
                             <div>
-                                <div className="text-[10px] text-slate-400 font-bold uppercase">Real-time Analysis</div>
-                                <div className="text-sm font-bold text-slate-800">145+ Critical Slots</div>
+                                <div className="text-[9px] text-slate-400 font-bold uppercase">Real-time Analysis</div>
+                                <div className="text-xs font-bold text-slate-800">145+ Critical Slots</div>
                             </div>
                         </motion.div>
 
@@ -162,8 +162,8 @@ export default function Hero({ onBook }: HeroProps) {
                                 4.9
                             </div>
                             <div>
-                                <div className="text-[10px] text-slate-400 font-bold uppercase">Average Rating</div>
-                                <div className="text-sm font-bold text-slate-800">Trusted by Users</div>
+                                <div className="text-[9px] text-slate-400 font-bold uppercase">Average Rating</div>
+                                <div className="text-xs font-bold text-slate-800">Trusted by Users</div>
                             </div>
                         </motion.div>
 
