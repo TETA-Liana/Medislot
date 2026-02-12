@@ -7,12 +7,12 @@ import { Menu, X, LayoutDashboard, Home } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 interface HeaderProps {
-    view: string;
-    setView: (view: string) => void;
-    onAuth: (mode: 'login' | 'signup') => void;
+    view?: string;
+    setView?: (view: string) => void;
+    onAuth?: (mode: 'login' | 'signup') => void;
 }
 
-export default function Header({ view, setView, onAuth }: HeaderProps) {
+export default function Header({ view = 'landing', setView, onAuth }: HeaderProps) {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -25,11 +25,11 @@ export default function Header({ view, setView, onAuth }: HeaderProps) {
     }, []);
 
     const navLinks = [
-        { name: 'Home', action: () => setView('landing') },
-        { name: 'About', href: '#about' },
-        { name: 'Schedule', href: '#schedule' },
-        { name: 'Reviews', href: '#reviews' },
-        { name: 'Contact', href: '#contact' }
+        { name: 'Home', action: () => setView ? setView('landing') : (window.location.href = '/') },
+        { name: 'About', href: '/#about' },
+        { name: 'Schedule', href: '/#schedule' },
+        { name: 'Reviews', href: '/#reviews' },
+        { name: 'Contact', href: '/#contact' }
     ];
 
     return (
@@ -41,7 +41,7 @@ export default function Header({ view, setView, onAuth }: HeaderProps) {
         >
             <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
                 <div
-                    onClick={() => setView('landing')}
+                    onClick={() => setView ? setView('landing') : (window.location.href = '/')}
                     className="flex items-center gap-2 cursor-pointer group"
                 >
                     <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-600/20 group-hover:scale-110 transition-transform">M</div>
@@ -79,13 +79,13 @@ export default function Header({ view, setView, onAuth }: HeaderProps) {
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-6">
                     <button
-                        onClick={() => onAuth('login')}
+                        onClick={() => onAuth?.('login')}
                         className="text-slate-800 font-bold text-sm hover:text-emerald-600 transition-colors"
                     >
                         Sign in
                     </button>
                     <Button
-                        onClick={() => onAuth('signup')}
+                        onClick={() => onAuth?.('signup')}
                         className="rounded-xl px-7 py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 border-0"
                     >
                         Get Started
