@@ -51,9 +51,12 @@ export default function Home() {
     const handleAuthSuccess = (userData: any) => {
         setUser(userData);
         setIsAuthOpen(false);
+        // Always redirect to dashboard after successful login
         if (pendingView) {
             setView(pendingView);
             setPendingView(null);
+        } else {
+            setView('dashboard');
         }
     };
 
