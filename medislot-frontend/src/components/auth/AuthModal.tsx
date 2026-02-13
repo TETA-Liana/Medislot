@@ -52,12 +52,17 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
                 }, 1500);
             } else {
                 await authApi.register({ email, password, firstName, lastName, phone });
-                // Switch to login after successful registration
+
+                // Automatically log in after successful registration
+                const loginResponse = await authApi.login({ email, password });
+                localStorage.setItem('accessToken', loginResponse.data.accessToken);
+                localStorage.setItem('refreshToken', loginResponse.data.refreshToken);
+
                 setSuccess(true);
                 setTimeout(() => {
-                    setSuccess(false);
-                    setMode('login');
-                }, 2000);
+                    onSuccess(loginResponse.data.user);
+                    onClose();
+                }, 1500);
             }
         } catch (err: any) {
             setError(err.message || 'An error occurred during authentication');

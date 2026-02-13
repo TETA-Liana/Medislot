@@ -27,6 +27,7 @@ export default function Home() {
         if (token) {
             authApi.getMe().then(res => {
                 setUser(res.data);
+                setView('dashboard'); // Switch to dashboard if already logged in
             }).catch(() => {
                 localStorage.removeItem('accessToken');
             });
