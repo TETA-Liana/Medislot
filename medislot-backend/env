@@ -1,0 +1,24 @@
+DATABASE_URL="postgresql://postgres:Dearmama@localhost:5432/medislot"
+DATABASE_URL_TEST="postgresql://postgres:Dearmama@localhost:5432/medislot_test"
+
+JWT_ACCESS_SECRET="your-access-secret-key-change-in-production"
+JWT_ACCESS_EXPIRATION="15m"
+JWT_REFRESH_SECRET="your-refresh-secret-key-change-in-production"
+JWT_REFRESH_EXPIRATION="7d"
+
+
+
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT=587
+SMTP_SECURE="false"
+SMTP_USER="tetaliana287@gmail.com"
+SMTP_PASS="tchfqosshsmxrsib"
+EMAIL_FROM="MediSlot <tetaliana287@gmail.com>"
+
+
+PORT=3000
+NODE_ENV="development"
+FRONTEND_URL="http://localhost:5000"
+
+ADMIN_EMAIL="admin@medislot.com"
+ADMIN_PASSWORD="admin123"
