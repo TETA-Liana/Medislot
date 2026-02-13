@@ -17,8 +17,10 @@ async function bootstrap() {
     origin: [
       configService.get('frontend.url'),
       'http://localhost:3000',
+      'http://localhost:5000',
       'http://127.0.0.1:3000',
       'https://medislot-nhhi.onrender.com',
+      'https://medislot-t.vercel.app',
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
