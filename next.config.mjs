@@ -1,9 +1,13 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    experimental: {
-        // appDir is now stable in recent versions, but keeping config minimal is safe
+    async rewrites() {
+        return [
+            {
+                source: '/api/v1/:path*',
+                destination: 'http://localhost:5000/api/v1/:path*',
+            },
+        ];
     },
     images: {
         remotePatterns: [

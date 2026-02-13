@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "concurrently \"next dev\" \"cd medislot-backend && npm run start:dev\"",
+    "build": "next build && npm install --prefix medislot-backend && cd medislot-backend && npx prisma generate && npm run build",
+    "start": "concurrently \"next start\" \"cd medislot-backend && PORT=5000 node dist/main\"",
     "lint": "next lint"
   },
   "keywords": [],
@@ -31,5 +31,7 @@
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
