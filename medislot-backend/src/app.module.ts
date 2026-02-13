@@ -24,7 +24,7 @@ import { AdminInitService } from './common/services/admin-init.service';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-      envFilePath: '.env',
+      envFilePath: ['.env', 'env'],
     }),
     ThrottlerModule.forRoot([
       {
@@ -65,7 +65,7 @@ import { AdminInitService } from './common/services/admin-init.service';
   ],
 })
 export class AppModule implements NestModule {
-  constructor(private readonly adminInit: AdminInitService) {}
+  constructor(private readonly adminInit: AdminInitService) { }
 
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(RequestIdMiddleware, LoggingMiddleware).forRoutes('*');
